@@ -14,7 +14,7 @@ namespace Mdk.Shared;
 public partial class Product
 {
     [Key]
-    public long ProductId { get; set; }
+    public int ProductId { get; set; }
 
     [Required]
     [Column(TypeName = "nvarchar (40)")]
