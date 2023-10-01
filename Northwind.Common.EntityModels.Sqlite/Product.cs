@@ -44,7 +44,7 @@ public partial class Product
     public short? ReorderLevel { get; set; }
 
     [Column(TypeName = "bit")]
-    public bool Discontinued { get; set; } = null!;
+    public bool? Discontinued { get; set; } = null!;
 
     [ForeignKey("CategoryId")]
     [InverseProperty("Products")]
