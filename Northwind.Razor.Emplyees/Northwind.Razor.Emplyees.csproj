@@ -1,26 +1,20 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+<Project Sdk="Microsoft.NET.Sdk.Razor">
 
-<!-- Framework dependecy declarations-->
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <AddRazorSupportForMvc>true</AddRazorSupportForMvc>
   </PropertyGroup>
 
-
-<!-- Project folders declarations-->
   <ItemGroup>
-    <Folder Include="wwwroot/" />
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folde Include="Pages/" />
-  </ItemGroup>
-
-<!-- Projects dependecy declarations-->
   <ItemGroup>
     <ProjectReference Include="..\Northwind.Common.DataContext.Sqlite\Northwind.Common.DataContext.Sqlite.csproj" />
-    <ProjectReference Include="..\Northwind.Razor.Emplyees\Northwind.Razor.Emplyees.csproj" />
   </ItemGroup>
+
+
 
 </Project>
