@@ -3,6 +3,7 @@ using Mdk.Shared;
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 builder.Services.AddNorthwindContext();
+builder.Services.AddRequestDecompression();
 
 var app = builder.Build();
 
@@ -31,6 +32,7 @@ app.Use(async (HttpContext context, Func<Task> next) =>{
 });
 
 app.UseHttpsRedirection();
+app.UseRequestDecompression();
 
 app.UseDefaultFiles();
 app.UseStaticFiles();
