@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 
-namespace Mdk.Shared;
+namespace Mdk.Shared.Sqlite;
 
 public partial class NorthwindContext : DbContext
 {

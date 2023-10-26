@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Mdk.Shared;
+namespace Mdk.Shared.Sqlite;
 
 public static class NorthwindContextExtensions{
     /// <summary>
