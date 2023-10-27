@@ -1,6 +1,8 @@
+using System.Runtime.InteropServices;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Northwind.Mvc.Data;
+using Mdk.Shared;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,7 +15,7 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews();
-
+builder.Services.AddNorthwindContext();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

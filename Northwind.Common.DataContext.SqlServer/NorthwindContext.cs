@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 
-namespace Mdk.Shared.SqlServer;
+namespace Mdk.Shared;
 
 public partial class NorthwindContext : DbContext
 {

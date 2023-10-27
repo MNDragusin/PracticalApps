@@ -1,8 +1,7 @@
-﻿using Mdk.Shared.SqlServer;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Northwind.Common.DataContext.SqlServer;
+namespace Mdk.Shared;
 
 public static class NorthwindContextExtensions
 {

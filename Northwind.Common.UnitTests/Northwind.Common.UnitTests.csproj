@@ -24,7 +24,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Northwind.Common.DataContext.Sqlite\Northwind.Common.DataContext.Sqlite.csproj" />
-    <ProjectReference Include="..\Northwind.Common.DataContext.SqlServer\Northwind.Common.DataContext.SqlServer.csproj" />
+    <!--<ProjectReference Include="..\Northwind.Common.DataContext.SqlServer\Northwind.Common.DataContext.SqlServer.csproj" />-->
   </ItemGroup>
 
 </Project>
