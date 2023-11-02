@@ -1,4 +1,5 @@
-﻿@model HomeIndexViewModel
+﻿@using Mdk.Shared
+@model HomeIndexViewModel
 @{
     ViewData["Title"] = "Home Page";
     string _currentItem = string.Empty;
@@ -70,6 +71,13 @@
                 <ul class="list-group">
                     @foreach(Product p in @Model.Products){
                         <li class="list-group-item d-flex fustify-content-between">
+                            <a asp-controller="Home" asp-action="ProductDetail" asp-route-id="@p.ProductId" class="btn btn-outline-primary">
+                                <div class="ms-2 me-auto">@p.ProductName</div>
+                                <span class="badge bg-primary rounded-pill">
+                                    @(p.UnitPrice is null ? "zero" : p.UnitPrice.Value.ToString("C"))
+                                </span>
+
+                            </a>
 
                         </li>
                     }
