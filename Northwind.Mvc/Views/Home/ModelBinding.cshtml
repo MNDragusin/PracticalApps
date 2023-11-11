@@ -1,0 +1,26 @@
+﻿@model Thing
+@{
+    ViewData["Title"] = "Model binding Demo";
+}
+
+<h1>@ViewData["Title"]</h1>
+<div>
+    Enter values for your thing is the following form:
+</div>
+<form method="post" action="/home/modelbinding?id=3">
+    <input name="colour" value="red"/>
+    <input type="submit"/>
+</form>
+
+@if(Model is not null){
+    <h2>Submitted thing</h2>
+    <hr />
+    <div>
+        <dl class="dl-horizontal">
+            <dt>Model.Id</dt>
+            <dd>@Model.Id</dd>
+            <dt>Model.Colour</dt>
+            <dd>@Model.Colour</dd>
+        </dl>
+    </div>
+}
