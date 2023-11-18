@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Northwind.Mvc.Models;
 using Mdk.Shared;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Northwind.Mvc.Controllers;
 
@@ -29,6 +30,7 @@ public class HomeController : Controller
         return View(model);
     }
 
+    [Authorize(Roles = "Administrators")]
     public IActionResult Privacy()
     {
         return View();
