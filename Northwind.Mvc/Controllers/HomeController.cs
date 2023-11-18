@@ -30,6 +30,7 @@ public class HomeController : Controller
         return View(model);
     }
 
+    [Route("private")]
     [Authorize(Roles = "Administrators")]
     public IActionResult Privacy()
     {
