@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Northwind.Mvc.Data;
 using Mdk.Shared;
+using Microsoft.Extensions.Options;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,6 +20,10 @@ builder.Services.AddControllersWithViews();
 
 
 builder.Services.AddNorthwindContext();
+builder.Services.AddOutputCache(Options => {
+    Options.DefaultExpirationTimeSpan = TimeSpan.FromSeconds(10);
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -40,9 +45,14 @@ app.UseRouting();
 
 app.UseAuthorization();
 
+app.UseOutputCache();
+
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 app.MapRazorPages();
+
+app.MapGet("/notcached", () => DateTime.Now.ToString());
+app.MapGet("/cached", () => DateTime.Now.ToString()).CacheOutput();
 
 app.Run();

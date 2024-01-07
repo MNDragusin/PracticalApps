@@ -16,6 +16,7 @@ public class HomeController : Controller
         _dbContext = injectedContext;
     }
 
+    [ResponseCache(Duration = 10, Location = ResponseCacheLocation.Any)]
     public IActionResult Index()
     {
         _logger.LogError("This is an error log.");
