@@ -1,9 +1,7 @@
-using System.Runtime.InteropServices;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Northwind.Mvc.Data;
 using Mdk.Shared;
-using Microsoft.Extensions.Options;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,8 +18,9 @@ builder.Services.AddControllersWithViews();
 
 
 builder.Services.AddNorthwindContext();
-builder.Services.AddOutputCache(Options => {
-    Options.DefaultExpirationTimeSpan = TimeSpan.FromSeconds(10);
+builder.Services.AddOutputCache(options => {
+    options.DefaultExpirationTimeSpan = TimeSpan.FromSeconds(20);
+    options.AddPolicy("views", p=>p.SetVaryByQuery("alertStyle"));
 });
 
 var app = builder.Build();
@@ -49,10 +48,10 @@ app.UseOutputCache();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=Home}/{action=Index}/{id?}").CacheOutput("views");
 app.MapRazorPages();
 
 app.MapGet("/notcached", () => DateTime.Now.ToString());
-app.MapGet("/cached", () => DateTime.Now.ToString()).CacheOutput();
+app.MapGet("/cached", () => DateTime.Now.ToString());
 
 app.Run();
