@@ -2,8 +2,14 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Northwind.WebApi.Controllers;
 
+//enables REST-specific behavior for controllers, like automatic HTTP 400 responses for invalid models
 [ApiController]
-[Route("[controller]")]
+//leavit it like this with controller between square brackets will use a API route path 
+//based on the name of the class without the controller part from the end
+//[Route("[controller]")] 
+
+// Best practice to differentiate in larger projects the MVC controllers from web API
+[Route(Routes.WeatherForecast)]
 public class WeatherForecastController : ControllerBase
 {
     private static readonly string[] Summaries = new[]
@@ -18,10 +24,16 @@ public class WeatherForecastController : ControllerBase
         _logger = logger;
     }
 
-    [HttpGet(Name = "GetWeatherForecast")]
+    [HttpGet(Name = "GetWeatherForecastFiveDays")]
     public IEnumerable<WeatherForecast> Get()
     {
-        return Enumerable.Range(1, 5).Select(index => new WeatherForecast
+        return Get(5);
+    }
+
+    [HttpGet(template: "days:int", Name = "GetWeatherForecast")]
+    public IEnumerable<WeatherForecast> Get(int days)
+    {
+        return Enumerable.Range(1, days).Select(index => new WeatherForecast
         {
             Date = DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
             TemperatureC = Random.Shared.Next(-20, 55),
