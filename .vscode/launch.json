@@ -5,6 +5,12 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "C#: Northwind.WebApi Debug",
+            "type": "dotnet",
+            "request": "launch",
+            "projectPath": "${workspaceFolder}/Northwind.WebApi/Northwind.WebApi.csproj"
+        },
+        {
             "name": ".NET Core Launch (MVC)",
             "type": "coreclr",
             "request": "launch",
