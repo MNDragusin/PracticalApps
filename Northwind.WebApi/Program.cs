@@ -36,6 +36,12 @@ builder.Services.AddHttpLogging(option =>{
     option.ResponseBodyLogLimit = 4096;
 });
 
+// builder.Services.AddW3CLogging(options =>
+// {
+//     options.AdditionalRequestHeaders.Add("x-forwarded-for");
+//     options.AdditionalRequestHeaders.Add("x-client-ssl-protocol");
+// });
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
