@@ -20,13 +20,21 @@ public class CustomersController : ControllerBase
     // this will always return a list of customers (but it might be empty)
     [HttpGet]
     [ProducesResponseType(200, Type = typeof(IEnumerable<Customer>))]
-    public async Task<IEnumerable<Customer>> GetCustomers(string? country){
+    [ProducesResponseType(404)] //NotFound
+    //public async Task<IEnumerable<Customer>> GetCustomers(string? country){
+    public async Task<IActionResult> GetCustomers(string? country){
 
         if(string.IsNullOrWhiteSpace(country)){
-            return await _repo.RetrieveAllAsync();
+            return Ok(await _repo.RetrieveAllAsync());
         }
 
-        return (await _repo.RetrieveAllAsync()).Where(c => c.Country == country);
+        var result = (await _repo.RetrieveAllAsync()).Where(c => c.Country == country);
+
+        if(result.Count() == 0){
+            return NotFound("Try spell it with an upper case for the first letter or all uppercase in case of abreviation");
+        }
+
+        return Ok(result);
     }
 
     //GET: api/customer/id
@@ -94,6 +102,19 @@ public class CustomersController : ControllerBase
     [ProducesResponseType(400)] //BadRequest
     [ProducesResponseType(404)] //NotFound
     public async Task<IActionResult> Delete(string id){
+        //take controller of problem details
+        if(id == "bad"){
+            ProblemDetails problemDetails = new(){
+                Status = StatusCodes.Status400BadRequest,
+                Type = "https://localhost:5001/customers/failed-to-delete",
+                Title = $"Customer ID {id} found but failed to delete.",
+                Detail = "More details like Company Name, Country and so on.",
+                Instance = HttpContext.Request.Path
+            };
+
+            return BadRequest(problemDetails);
+        }
+
         if(string.IsNullOrWhiteSpace(id)){
             return BadRequest();
         }
