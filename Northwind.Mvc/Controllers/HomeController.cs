@@ -10,11 +10,13 @@ namespace Northwind.Mvc.Controllers;
 public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
+    private readonly IHttpClientFactory _clientFactory;
     private readonly NorthwindContext _dbContext;
-    public HomeController(ILogger<HomeController> logger, NorthwindContext injectedContext)
+    public HomeController(ILogger<HomeController> logger, NorthwindContext injectedContext, IHttpClientFactory httpClientFactory)
     {
         _logger = logger;
         _dbContext = injectedContext;
+        _clientFactory = httpClientFactory;
     }
 
     [ResponseCache(Duration = 10, Location = ResponseCacheLocation.Any)]
@@ -91,6 +93,25 @@ public class HomeController : Controller
         }
 
         ViewData["MaxPrice"] = price.Value.ToString("C");
+        return View(model);
+    }
+
+    public async Task<IActionResult> Customers(string country){
+        string uri = "api/customers";
+
+        if(string.IsNullOrEmpty(country)){
+            ViewData["Title"] = "All Customers Worldwide";
+        }else{
+            ViewData["Title"] = $"Customers in {country}";
+            uri += $"/?country={country}"; 
+        }
+
+        HttpClient client = _clientFactory.CreateClient(name: "Northwind.WebApi");
+        HttpRequestMessage request = new(method: HttpMethod.Get, requestUri: uri);
+
+        HttpResponseMessage response = await client.SendAsync(request);
+        IEnumerable<Customer>? model = await response.Content.ReadFromJsonAsync<IEnumerable<Customer>>();
+
         return View(model);
     }
 }

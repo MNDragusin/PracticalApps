@@ -2,6 +2,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Northwind.Mvc.Data;
 using Mdk.Shared;
+using Microsoft.Net.Http.Headers;
+using System.Net.Http.Headers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,6 +23,11 @@ builder.Services.AddNorthwindContext();
 builder.Services.AddOutputCache(options => {
     options.DefaultExpirationTimeSpan = TimeSpan.FromSeconds(20);
     options.AddPolicy("views", p=>p.SetVaryByQuery("alertStyle"));
+});
+
+builder.Services.AddHttpClient(name: "Northwind.WebApi", configureClient: options =>{
+    options.BaseAddress = new Uri("http://localhost:5002/");
+    options.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue(mediaType: "application/json", quality: 1.0));
 });
 
 var app = builder.Build();
