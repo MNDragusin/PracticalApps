@@ -42,6 +42,9 @@ builder.Services.AddHttpLogging(option =>{
 //     options.AdditionalRequestHeaders.Add("x-client-ssl-protocol");
 // });
 
+builder.Services.AddHealthChecks()
+.AddDbContextCheck<NorthwindContext>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -65,4 +68,5 @@ app.UseAuthorization();
 app.UseHttpLogging();
 app.MapControllers();
 
+app.UseHealthChecks(path: "/howyoudoin");
 app.Run();
