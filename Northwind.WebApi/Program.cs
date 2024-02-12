@@ -3,7 +3,9 @@ using Mdk.Shared;
 using Northwind.WebApi.Repositories;
 using Swashbuckle.AspNetCore.SwaggerUI;
 using Microsoft.AspNetCore.HttpLogging;
+using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Northwind.WebApi;
+using System.Net;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -45,6 +47,20 @@ builder.Services.AddHttpLogging(option =>{
 
 builder.Services.AddHealthChecks()
 .AddDbContextCheck<NorthwindContext>();
+
+// builder.WebHost.ConfigureKestrel((context, option)=>{
+//     option.ListenAnyIP(5002,listenOptions =>{
+//         listenOptions.Protocols = HttpProtocols.Http1AndHttp2AndHttp3;
+//         listenOptions.UseHttps();
+//     });
+// });
+
+// builder.Services.AddHttpClient(name: "Northwind.WebApi", configureClient: options=>{
+//     options.DefaultRequestVersion = HttpVersion.Version30;
+//     options.DefaultVersionPolicy = HttpVersionPolicy.RequestVersionOrLower;
+
+//     options.BaseAddress = new Uri("https://localhost:5002/");
+// });
 
 var app = builder.Build();
 
