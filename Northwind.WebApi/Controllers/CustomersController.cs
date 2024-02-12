@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Mdk.Shared;
 using Northwind.WebApi.Repositories;
+using Microsoft.AspNetCore.Http;
 
 namespace Northwind.WebApi.Controllers;
 
@@ -56,6 +57,8 @@ public class CustomersController : ControllerBase
     [HttpPost]
     [ProducesResponseType(200, Type = typeof(Customer))]
     [ProducesResponseType(400)]
+    [ProducesResponseType(StatusCodes.Status201Created)]
+    [ProducesDefaultResponseType]
     public async Task<IActionResult> Create([FromBody] Customer newCustomer){
         if(newCustomer is null){
             return BadRequest(); //400 Bad request
