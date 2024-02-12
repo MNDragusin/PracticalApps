@@ -3,6 +3,7 @@ using Mdk.Shared;
 using Northwind.WebApi.Repositories;
 using Swashbuckle.AspNetCore.SwaggerUI;
 using Microsoft.AspNetCore.HttpLogging;
+using Northwind.WebApi;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -66,6 +67,7 @@ app.UseHttpsRedirection();
 
 app.UseAuthorization();
 app.UseHttpLogging();
+app.UseMiddleware<SecurityHeadersMiddleware>();
 app.MapControllers();
 
 app.UseHealthChecks(path: "/howyoudoin");
