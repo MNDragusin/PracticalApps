@@ -48,19 +48,12 @@ builder.Services.AddHttpLogging(option =>{
 builder.Services.AddHealthChecks()
 .AddDbContextCheck<NorthwindContext>();
 
-// builder.WebHost.ConfigureKestrel((context, option)=>{
-//     option.ListenAnyIP(5002,listenOptions =>{
-//         listenOptions.Protocols = HttpProtocols.Http1AndHttp2AndHttp3;
-//         listenOptions.UseHttps();
-//     });
-// });
-
-// builder.Services.AddHttpClient(name: "Northwind.WebApi", configureClient: options=>{
-//     options.DefaultRequestVersion = HttpVersion.Version30;
-//     options.DefaultVersionPolicy = HttpVersionPolicy.RequestVersionOrLower;
-
-//     options.BaseAddress = new Uri("https://localhost:5002/");
-// });
+builder.WebHost.ConfigureKestrel((context, option)=>{
+    option.ListenAnyIP(5002,listenOptions =>{
+        listenOptions.Protocols = HttpProtocols.Http1AndHttp2AndHttp3;
+        listenOptions.UseHttps();
+    });
+});
 
 var app = builder.Build();
 

@@ -26,7 +26,7 @@ builder.Services.AddOutputCache(options => {
 });
 
 builder.Services.AddHttpClient(name: "Northwind.WebApi", configureClient: options =>{
-    options.BaseAddress = new Uri("http://localhost:5002/");
+    options.BaseAddress = new Uri("https://localhost:5002/");
     options.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue(mediaType: "application/json", quality: 1.0));
 });
 

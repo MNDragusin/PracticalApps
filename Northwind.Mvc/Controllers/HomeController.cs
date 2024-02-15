@@ -111,21 +111,28 @@ public class HomeController : Controller
     }
 
     public async Task<IActionResult> Customers(string country){
-        string uri = "api/customers";
+        string uri = "api/Customers";
 
         if(string.IsNullOrEmpty(country)){
             ViewData["Title"] = "All Customers Worldwide";
         }else{
             ViewData["Title"] = $"Customers in {country}";
-            uri += $"/?country={country}"; 
+            uri += $"/?country={country}";
         }
 
-        HttpClient client = _clientFactory.CreateClient(name: "Northwind.WebApi");
-        HttpRequestMessage request = new(method: HttpMethod.Get, requestUri: uri);
+        try
+        {
+            HttpClient client = _clientFactory.CreateClient(name: "Northwind.WebApi");
+            HttpRequestMessage request = new(method: HttpMethod.Get, requestUri: uri);
 
-        HttpResponseMessage response = await client.SendAsync(request);
-        IEnumerable<Customer>? model = await response.Content.ReadFromJsonAsync<IEnumerable<Customer>>();
-
-        return View(model);
+            HttpResponseMessage response = await client.SendAsync(request);
+            IEnumerable<Customer>? model = await response.Content.ReadFromJsonAsync<IEnumerable<Customer>>();
+            return View(model);
+        }
+        catch (Exception exception)
+        {           
+            _logger.LogWarning($"Northwind.WebApi service is not responding. Exception: {exception.Message}");
+            return View("Error", new ErrorViewModel());
+        } 
     }
 }
