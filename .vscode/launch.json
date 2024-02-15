@@ -5,6 +5,12 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "Minimal.WebApi",
+            "type": "dotnet",
+            "request": "launch",
+            "projectPath": "${workspaceFolder}/Minimal.WebApi/Minimal.WebApi.csproj"
+        },
+        {
             "name": "C#: Northwind.WebApi Debug",
             "type": "dotnet",
             "request": "launch",
