@@ -5,6 +5,12 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "Blazor.Server",
+            "type": "dotnet",
+            "request": "launch",
+            "projectPath": "${workspaceFolder}/Northwind.BlazorServer/Northwind.BlazorServer.csproj"
+        },
+        {
             "name": "Minimal.WebApi",
             "type": "dotnet",
             "request": "launch",
