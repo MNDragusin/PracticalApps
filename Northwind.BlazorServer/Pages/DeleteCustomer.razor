@@ -1,0 +1,38 @@
+@page "/DeleteCustomer/{customerId}"
+@using Northwind.BlazorServer.Data
+@inject INorthwindService Service
+@inject NavigationManager Navigation
+
+<h3>Delete Customer</h3>
+<div class="alert alert-danger">Warning! This action cannot be undone!</div>
+
+<CustomerDetail ButtonText="Delete Customer"
+                ButtonStyle="danger"
+                Customer="@_customer"
+                OnValidSubmit="@Delete"/>
+
+@code {
+    [Parameter] public string CustomerId { get; set; } = null!;
+    private Customer? _customer = new();
+
+    protected override async Task OnParametersSetAsync()
+    {
+        if (string.IsNullOrWhiteSpace(CustomerId))
+        {
+            return;
+        }
+
+        _customer = await Service.GetCustomerAsync(CustomerId);
+    }
+
+    private async Task Delete()
+    {
+        if (_customer is null)
+        {
+            return;
+        }
+
+        await Service.DeleteCustomerAsync(CustomerId);
+        Navigation.NavigateTo("customers");
+    }
+}

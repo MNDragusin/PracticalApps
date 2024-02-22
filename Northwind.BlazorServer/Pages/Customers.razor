@@ -6,6 +6,11 @@
 
 <h3>Customers @(string.IsNullOrWhiteSpace(Country) ? "Worldwide" : $"in {Country}") </h3>
 
+<div class="form-group">
+    <a class="btn btn-info" href="createcustomer">
+        <i class="oi oi-plus"></i> Create new</a>
+</div>
+
 @if (_customers is null)
 {
     <p>
@@ -33,10 +38,10 @@ else
                 <td>@c.Address</td>
                 <td>@c.Phone</td>
                 <td>
-                    <a class="btn btn-info" href="editcustomer/@c.CustomerId">
+                    <a class="btn btn-info" href="EditCustomer/@c.CustomerId">
                         <i class="oi oi-pencil"></i>
                     </a>
-                    <a class="btn btn-danger" href="deletecustomer/@c.CustomerId">
+                    <a class="btn btn-danger" href="DeleteCustomer/@c.CustomerId">
                         <i class="oi oi-trash"></i>
                     </a>
                 </td>
