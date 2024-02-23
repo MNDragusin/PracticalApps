@@ -1,0 +1,20 @@
+@page "/createcustomer"
+@using Northwind.Blazorwasm.Data
+@inject INorthwindService Service
+@inject NavigationManager Navigation
+
+<h3>Create Customer</h3>
+<CustomerDetail ButtonText="Create Customer" 
+                Customer="@_customer"
+                OnValidSubmit="@Create"
+                />
+
+@code {
+    private Customer _customer = new();
+
+    private async Task Create()
+    {
+        await Service.CreateCustomerAsync(_customer);
+        Navigation.NavigateTo("customers");
+    }
+}

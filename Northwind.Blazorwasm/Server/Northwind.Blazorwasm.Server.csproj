@@ -11,6 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Northwind.Common.DataContext.Sqlite\Northwind.Common.DataContext.Sqlite.csproj" />
     <ProjectReference Include="..\Client\Northwind.Blazorwasm.Client.csproj" />
     <ProjectReference Include="..\Shared\Northwind.Blazorwasm.Shared.csproj" />
   </ItemGroup>

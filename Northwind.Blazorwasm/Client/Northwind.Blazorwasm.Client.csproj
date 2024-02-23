@@ -13,6 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Northwind.Common.EntityModels.Sqlite\Northwind.Common.EntityModels.Sqlite.csproj" />
     <ProjectReference Include="..\Shared\Northwind.Blazorwasm.Shared.csproj" />
   </ItemGroup>
 
